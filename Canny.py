@@ -17,6 +17,12 @@ kernel_size = 3
 imagen = cv2.imread('img\\Grietas\\grietas_concreto_recortado.jpg')
 
 gray = cv2.cvtColor(imagen, cv2.COLOR_BGR2GRAY)
+
+# Medir profundidad de la fractura:
+stereo = cv2.StereoBM_create(numDisparities=16, blockSize=15)
+disparity = stereo.compute(gray, gray)
+plt.imshow(disparity)
+"""
 bordes = cv2.GaussianBlur(gray, (3,3), 0) #Aplica filtro de distorsión a la imagen
 bordes = cv2.Canny(bordes, umbral, umbral*radio, apertureSize = kernel_size)
 bordes = cv2.morphologyEx(bordes, cv2.MORPH_GRADIENT, kernel) #Elimina lo que hay dentro del contorno
@@ -31,9 +37,12 @@ M = cv2.moments(cnt)
 cx = int(M['m10']/M['m00'])
 cy = int(M['m01']/M['m00'])
 
+# Medir ancho de la fractura:
 x,y,w,h = cv2.boundingRect(cnt)
 cv2.rectangle(imagen,(x,y),(x+w,y+h),(0,255,0),2)
-print('Ancho: ', h)
+print('Ancho:', h, 'px')
+"""
+
 
 """
 rect = cv2.minAreaRect(cnt)
