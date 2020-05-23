@@ -9,15 +9,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-plt.rcParams.update({'font.size': 20})
+lenguajes = ('Python', 'C', 'Java', 'Go', 'JavaScript')
+slices = (100, 130, 90, 80, 128)
+colores = ('red', 'blue', 'green', '#DD98AA', '#18492D')
 
-x = np.arange(3) # numeros del 0 al 2
-y = np.random.rand(3) # llenar "y" con numeros random.
-
-plt.bar(x, y, color=['c', 'b', 'g'])
-plt.ylim(0,1) # pone un límite en "y".
-plt.grid(True) # pone una "malla".
-plt.yticks([0, 0.2, 0.4, 0.6, 0.8, 1]) # pone los valores en "y" 
-
-
+_,_,texto = plt.pie(slices, colors=colores, labels=lenguajes, autopct='%1.1f%%')
+ 
+for tex in texto:
+    tex.set_color('white')
+    
+    
+plt.axis('equal')
+plt.title('Gráfica de Lenguajes de Programación')
+plt.show()
 
